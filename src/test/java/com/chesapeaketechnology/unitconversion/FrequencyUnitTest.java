@@ -6,92 +6,91 @@ import static org.junit.Assert.assertEquals;
 
 public class FrequencyUnitTest
 {
-    private static final double DELTA = 1e16;
+    private static final double DELTA = 1e-16;
+    private static final double TEST_FREQUENCY_HZ = 1_234_567.89;
+    private static final double TEST_FREQUENCY_KHZ = TEST_FREQUENCY_HZ / 1_000;
+    private static final double TEST_FREQUENCY_MHZ = TEST_FREQUENCY_KHZ / 1_000;
+    private static final double TEST_FREQUENCY_GHZ = TEST_FREQUENCY_MHZ / 1_000;
+
+    private static final long TEST_FREQUENCY_HZ_ROUNDED = Math.round(TEST_FREQUENCY_HZ);
 
     @Test
     public void testHz()
     {
-        // Should round up for rounded hz.
-        final double frequencyInHz = 1_234_567.89;
-
-        assertEquals(1_234_568, FrequencyUnit.HZ.toHzRounded(frequencyInHz));
-        assertEquals(frequencyInHz, FrequencyUnit.HZ.toHz(frequencyInHz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.HZ.toKhz(frequencyInHz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.HZ.toMhz(frequencyInHz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.HZ.toGhz(frequencyInHz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.HZ.toHz(frequencyInHz), DELTA);
+        assertEquals(TEST_FREQUENCY_HZ_ROUNDED, FrequencyUnit.HZ.toHzRounded(TEST_FREQUENCY_HZ));
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.HZ.toHz(TEST_FREQUENCY_HZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.HZ.toKhz(TEST_FREQUENCY_HZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.HZ.toMhz(TEST_FREQUENCY_HZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.HZ.toGhz(TEST_FREQUENCY_HZ), DELTA);
     }
 
     @Test
     public void testKhz()
     {
-        // Should round down for rounded hz.
-        final double frequencyInHz = 1_234_567.49;
-        final double frequencyInKhz = frequencyInHz / 1_000;
-
-        assertEquals(1_234_567, FrequencyUnit.KHZ.toHzRounded(frequencyInKhz));
-        assertEquals(frequencyInHz, FrequencyUnit.KHZ.toHz(frequencyInKhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.KHZ.toKhz(frequencyInKhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.KHZ.toMhz(frequencyInKhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.KHZ.toGhz(frequencyInKhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.KHZ.toHz(frequencyInKhz), DELTA);
+        assertEquals(TEST_FREQUENCY_HZ_ROUNDED, FrequencyUnit.KHZ.toHzRounded(TEST_FREQUENCY_KHZ));
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.KHZ.toHz(TEST_FREQUENCY_KHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ.toKhz(TEST_FREQUENCY_KHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.KHZ.toMhz(TEST_FREQUENCY_KHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.KHZ.toGhz(TEST_FREQUENCY_KHZ), DELTA);
     }
 
     @Test
     public void testMhz()
     {
-        // .5 should round up for rounded hz.
-        final double frequencyInHz = 1_234_567.5;
-        final double frequencyInMhz = frequencyInHz / 1_000_000;
-
-        assertEquals(1_234_568, FrequencyUnit.MHZ.toHzRounded(frequencyInMhz));
-        assertEquals(frequencyInHz, FrequencyUnit.MHZ.toHz(frequencyInMhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.MHZ.toKhz(frequencyInMhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.MHZ.toMhz(frequencyInMhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.MHZ.toGhz(frequencyInMhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.MHZ.toHz(frequencyInMhz), DELTA);
+        assertEquals(TEST_FREQUENCY_HZ_ROUNDED, FrequencyUnit.MHZ.toHzRounded(TEST_FREQUENCY_MHZ));
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.MHZ.toHz(TEST_FREQUENCY_MHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.MHZ.toKhz(TEST_FREQUENCY_MHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ.toMhz(TEST_FREQUENCY_MHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.MHZ.toGhz(TEST_FREQUENCY_MHZ), DELTA);
     }
 
     @Test
     public void testGhz()
     {
-        final double frequencyInHz = 1_234_567.5;
-        final double frequencyInGhz = frequencyInHz / 1_000_000_000;
+        assertEquals(TEST_FREQUENCY_HZ_ROUNDED, FrequencyUnit.GHZ.toHzRounded(TEST_FREQUENCY_GHZ));
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.GHZ.toHz(TEST_FREQUENCY_GHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.GHZ.toKhz(TEST_FREQUENCY_GHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.GHZ.toMhz(TEST_FREQUENCY_GHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ.toGhz(TEST_FREQUENCY_GHZ), DELTA);
+    }
 
-        assertEquals(1_234_568, FrequencyUnit.GHZ.toHzRounded(frequencyInGhz));
-        assertEquals(frequencyInHz, FrequencyUnit.GHZ.toHz(frequencyInGhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.GHZ.toKhz(frequencyInGhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.GHZ.toMhz(frequencyInGhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.GHZ.toGhz(frequencyInGhz), DELTA);
-        assertEquals(frequencyInHz, FrequencyUnit.GHZ.toHz(frequencyInGhz), DELTA);
+    @Test
+    public void testRoundingDown()
+    {
+        // The other unit tests used a value that was rounded up.  Verify rounding down is working.
+        final double freqHz = 1_234_567.4;
+        final double freqKhz = freqHz / 1_000;
+        final double freqMhz = freqKhz / 1_000;
+        final double freqGhz = freqMhz / 1_000;
+        final long freqHzRounded = Math.round(freqHz);
+
+        assertEquals(freqHzRounded, FrequencyUnit.HZ.toHzRounded(freqHz));
+        assertEquals(freqHzRounded, FrequencyUnit.KHZ.toHzRounded(freqKhz));
+        assertEquals(freqHzRounded, FrequencyUnit.MHZ.toHzRounded(freqMhz));
+        assertEquals(freqHzRounded, FrequencyUnit.GHZ.toHzRounded(freqGhz));
     }
 
     @Test
     public void testSourceUnitParameters()
     {
-        final double frequencyHz = 53_279_168_382.1;
-        final double frequencyKhz = FrequencyUnit.HZ.toKhz(frequencyHz);
-        final double frequencyMhz = FrequencyUnit.HZ.toMhz(frequencyHz);
-        final double frequencyGhz = FrequencyUnit.HZ.toGhz(frequencyHz);
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.HZ.convert(TEST_FREQUENCY_HZ, FrequencyUnit.HZ), DELTA);
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.HZ.convert(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.HZ.convert(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_HZ, FrequencyUnit.HZ.convert(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ), DELTA);
 
-        assertEquals(frequencyHz, FrequencyUnit.HZ.convert(frequencyHz, FrequencyUnit.HZ), DELTA);
-        assertEquals(frequencyHz, FrequencyUnit.HZ.convert(frequencyKhz, FrequencyUnit.KHZ), DELTA);
-        assertEquals(frequencyHz, FrequencyUnit.HZ.convert(frequencyMhz, FrequencyUnit.MHZ), DELTA);
-        assertEquals(frequencyHz, FrequencyUnit.HZ.convert(frequencyGhz, FrequencyUnit.GHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ.convert(TEST_FREQUENCY_HZ, FrequencyUnit.HZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ.convert(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ.convert(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ.convert(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ), DELTA);
 
-        assertEquals(frequencyKhz, FrequencyUnit.KHZ.convert(frequencyHz, FrequencyUnit.HZ), DELTA);
-        assertEquals(frequencyKhz, FrequencyUnit.KHZ.convert(frequencyKhz, FrequencyUnit.KHZ), DELTA);
-        assertEquals(frequencyKhz, FrequencyUnit.KHZ.convert(frequencyMhz, FrequencyUnit.MHZ), DELTA);
-        assertEquals(frequencyKhz, FrequencyUnit.KHZ.convert(frequencyGhz, FrequencyUnit.GHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ.convert(TEST_FREQUENCY_HZ, FrequencyUnit.HZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ.convert(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ.convert(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ.convert(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ), DELTA);
 
-        assertEquals(frequencyMhz, FrequencyUnit.MHZ.convert(frequencyHz, FrequencyUnit.HZ), DELTA);
-        assertEquals(frequencyMhz, FrequencyUnit.MHZ.convert(frequencyKhz, FrequencyUnit.KHZ), DELTA);
-        assertEquals(frequencyMhz, FrequencyUnit.MHZ.convert(frequencyMhz, FrequencyUnit.MHZ), DELTA);
-        assertEquals(frequencyMhz, FrequencyUnit.MHZ.convert(frequencyGhz, FrequencyUnit.GHZ), DELTA);
-
-        assertEquals(frequencyGhz, FrequencyUnit.GHZ.convert(frequencyHz, FrequencyUnit.HZ), DELTA);
-        assertEquals(frequencyGhz, FrequencyUnit.GHZ.convert(frequencyKhz, FrequencyUnit.KHZ), DELTA);
-        assertEquals(frequencyGhz, FrequencyUnit.GHZ.convert(frequencyMhz, FrequencyUnit.MHZ), DELTA);
-        assertEquals(frequencyGhz, FrequencyUnit.GHZ.convert(frequencyGhz, FrequencyUnit.GHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ.convert(TEST_FREQUENCY_HZ, FrequencyUnit.HZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ.convert(TEST_FREQUENCY_KHZ, FrequencyUnit.KHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ.convert(TEST_FREQUENCY_MHZ, FrequencyUnit.MHZ), DELTA);
+        assertEquals(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ.convert(TEST_FREQUENCY_GHZ, FrequencyUnit.GHZ), DELTA);
     }
 }
