@@ -55,7 +55,7 @@ publishing {
                     developer {
                         id = 'cti-service'
                         name = 'Chesapeake Technology International'
-                        email = 'devops@ctic-inc.us'
+                        email = 'devops@ctic.us'
                     }
                 }
                 scm {
